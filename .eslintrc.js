@@ -5,16 +5,25 @@ module.exports = {
     node: true
   },
   extends: [
-    '@nuxtjs/eslint-config-typescript',
-    'prettier',
-    'prettier/vue',
-    'plugin:prettier/recommended',
+    'airbnb-base',
+    'plugin:vue/recommended',
     'plugin:nuxt/recommended'
   ],
   plugins: [
-    'prettier'
+    'import',
+    'vue',
   ],
   // add your custom rules here
   rules: {
+    strict: 'error',
+    'import/extensions': ['error', 'always', {
+      js: 'never',
+      vue: 'never'
+    }],
+    'no-param-reassign': 0,
+    'no-return-assign': ['error', 'always'],
+    'func-names': ['error', 'never'],
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+
   }
-}
+};
