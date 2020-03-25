@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div x-data="{ open: false }" class="relative bg-white overflow-hidden">
+  <div @click="windowClick">
+    <div class="relative bg-white overflow-hidden">
       <div class="max-w-screen-xl mx-auto ">
         <div
           class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
@@ -24,7 +24,7 @@
                     <button
                       type="button"
                       class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                      @click="open = true"
+                      @click.stop="menuOpen = true"
                     >
                       <svg
                         class="h-6 w-6"
@@ -66,21 +66,23 @@
                 >
                 <nuxt-link
                   to="/login"
+                  v-if="!$auth.loggedIn"
                   class="ml-8 font-medium text-indigo-600 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out"
-                  >Log in</nuxt-link
-                >
+                  >
+                  Log in
+                </nuxt-link>
+                <nuxt-link
+                to="/dashboard"
+                class="ml-8 font-medium text-indigo-700 bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out px-4 py-2 rounded-md"
+                v-else>
+                  Dashboard
+                </nuxt-link>
               </div>
             </nav>
           </div>
 
           <div
-            x-show="open"
-            x-transition:enter="duration-150 ease-out"
-            x-transition:enter-start="opacity-0 scale-95"
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="duration-100 ease-in"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-95"
+            v-if="menuOpen"
             class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
           >
             <div class="rounded-lg shadow-md">
@@ -97,7 +99,7 @@
                     <button
                       type="button"
                       class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                      @click="open = false"
+                      @click.stop="menuOpen = false"
                     >
                       <svg
                         class="h-6 w-6"
@@ -139,10 +141,17 @@
                 </div>
                 <div>
                   <nuxt-link
+                    v-if="!$auth.loggedIn"
                     to="/login"
                     class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out"
                   >
                     Log in
+                  </nuxt-link>
+                  <nuxt-link
+                    to="/dashboard"
+                    class="block w-full px-5 py-3 text-center font-medium text-indigo-700 bg-indigo-100 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out"
+                    v-else>
+                    Dashboard
                   </nuxt-link>
                 </div>
               </div>
@@ -164,3 +173,22 @@
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        menuOpen: false,
+      }
+    },
+
+    methods: {
+      windowClick(event) {
+        if (this.menuOpen) {
+          this.menuOpen = false;
+          event.preventDefault();
+        }
+      },
+    }
+  }
+</script>

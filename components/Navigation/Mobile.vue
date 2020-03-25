@@ -1,7 +1,8 @@
 <template>
   <div class="px-2 pt-2 pb-3 sm:px-3">
     <nuxt-link
-      v-for="menuItem in menuItems"
+      v-for="(menuItem, index) in menuItems"
+      :key="index"
       class="menu-item hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
       :to="menuItem.path"
       v-text="menuItem.title"
@@ -14,10 +15,10 @@ export default {
   props: {
     menuItems: {
       type: Array,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
 
 <style scoped>

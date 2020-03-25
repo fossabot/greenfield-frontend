@@ -1,5 +1,14 @@
+import login from './serverMiddleware/login.js';
+import bodyParser from 'body-parser';
+
 export default {
   mode: 'universal',
+
+  env: {
+    BASE_urL: process.env.BASE_URL || 'http://localhost:3000',
+    API_URL: process.env.API_URL,
+  },
+
   /*
    ** Headers of the page
    */
@@ -11,10 +20,10 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: process.env.npm_package_description || '',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -27,13 +36,16 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/bus.js',
+    '~/plugins/form.js',
+  ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
   ],
   /*
    ** Nuxt.js modules
@@ -41,8 +53,10 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    ['nuxt-i18n', require('./i18n')],
   ],
   /*
    ** Axios module configuration
@@ -56,6 +70,24 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
-  }
-}
+    extend(config, ctx) {},
+  },
+
+  auth: {
+    strategies: {
+      'oauth2.password': {
+        _scheme: '~/auth/oauth2PasswordGrant.js',
+        endpoints: {
+          login: `${process.env.BASE_URL}/api/login`,
+          me: `${process.env.API_URL}/me`,
+        },
+        redirects: false,
+      },
+    },
+  },
+
+  serverMiddleware: [
+    bodyParser.json(),
+    login,
+  ],
+};
