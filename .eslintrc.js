@@ -24,6 +24,5 @@ module.exports = {
     'no-return-assign': ['error', 'always'],
     'func-names': ['error', 'never'],
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-
   }
 };

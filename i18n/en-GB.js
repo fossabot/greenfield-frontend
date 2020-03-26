@@ -44,6 +44,12 @@ export default {
   emailNotVerified: {
     title: 'You still need to verify your email address',
     intro: 'Check your inbox or click below to resend your verification',
-    submit: 'Resend verification'
-  }
-}
+    submit: 'Resend verification',
+  },
+  dashboard: {
+    title: 'Dashboard',
+  },
+  settings: {
+    title: 'Settings',
+  },
+};

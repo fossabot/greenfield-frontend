@@ -21,12 +21,13 @@
                 <desktop-navigation :menu-items="menuItems" />
               </div>
             </div>
-              <div class="hidden md:block">
+            <div class="hidden md:block">
               <div class="ml-4 flex items-center md:ml-6">
                 <div class="relative">
                   <button
                     class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700"
-                  @click.stop="notificationsOpen = !notificationsOpen">
+                    @click.stop="notificationsOpen = !notificationsOpen"
+                  >
                     <svg
                       class="h-6 w-6"
                       stroke="currentColor"
@@ -42,17 +43,19 @@
                     </svg>
                   </button>
 
-                  <div class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg" v-if="notificationsOpen">
+                  <div
+                    v-if="notificationsOpen"
+                    class="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg"
+                  >
                     <div class="rounded-md bg-white shadow-xs">
                       <div class="py-1">
                         <div class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">
                           Notification
                         </div>
                       </div>
-                      <div class="border-t border-gray-100"></div>
+                      <div class="border-t border-gray-100" />
                     </div>
                   </div>
-
                 </div>
 
                 <div class="ml-3 relative">
@@ -75,13 +78,13 @@
                   >
                     <div class="py-1 rounded-md bg-white shadow-xs">
                       <component
+                        :is="accountMenuItem.action ? 'a' : 'nuxt-link'"
                         v-for="(accountMenuItem, index) in accountMenuItems"
                         :key="index"
                         :to="accountMenuItem.path"
-                        @click.prevent="accountMenuItem.action ? accountMenuItem.action() : null"
                         class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        @click.prevent="accountMenuItem.action ? accountMenuItem.action() : null"
                         v-text="accountMenuItem.title"
-                        :is="accountMenuItem.action ? 'a' : 'nuxt-link'"
                       />
                     </div>
                   </div>
@@ -101,9 +104,9 @@
                 >
                   <path
                     :class="{
-                    hidden: menuOpen,
-                    'inline-flex': !menuOpen
-                  }"
+                      hidden: menuOpen,
+                      'inline-flex': !menuOpen
+                    }"
                     class="inline-flex"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -112,9 +115,9 @@
                   />
                   <path
                     :class="{
-                    hidden: !menuOpen,
-                    'inline-flex': menuOpen
-                  }"
+                      hidden: !menuOpen,
+                      'inline-flex': menuOpen
+                    }"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
@@ -140,19 +143,25 @@
                 >
               </div>
               <div class="ml-3">
-                <div class="text-base font-medium leading-none text-white" v-text="`${me.first_name} ${me.surname}`" />
-                <div class="mt-1 text-sm font-medium leading-none text-gray-400" v-text="me.email" />
+                <div
+                  class="text-base font-medium leading-none text-white"
+                  v-text="`${me.first_name} ${me.surname}`"
+                />
+                <div
+                  class="mt-1 text-sm font-medium leading-none text-gray-400"
+                  v-text="me.email"
+                />
               </div>
             </div>
             <div class="mt-3 px-2">
               <component
+                :is="accountMenuItem.action ? 'a' : 'nuxt-link'"
                 v-for="(accountMenuItem, index) in accountMenuItems"
                 :key="index"
                 :to="accountMenuItem.path"
-                @click.prevent="accountMenuItem.action ? accountMenuItem.action() : null"
                 class="cursor-pointer block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                @click.prevent="accountMenuItem.action ? accountMenuItem.action() : null"
                 v-text="accountMenuItem.title"
-                :is="accountMenuItem.action ? 'a' : 'nuxt-link'"
               />
             </div>
           </div>
@@ -208,7 +217,7 @@ export default {
   computed: {
     me() {
       return this.$auth.user;
-    }
+    },
   },
 
   methods: {
