@@ -45,16 +45,68 @@
         </circle>
       </svg>
     </div>
+
+    <div class="fixed w-full bottom-0 z-10 md:top-0 md:right-0 md:w-6/12 md:mt-16 md:h-0">
+      <div
+        v-for="(toast, index) in toasts"
+        :key="index"
+      >
+        <div class="bg-white rounded-lg m-4 shadow border-gray-200 border p-4 flex">
+          <div
+            class="text-xl -mt-1"
+            :class="colours[toast.status]"
+          >
+            <font-awesome-icon :icon="icons[toast.status]" />
+          </div>
+          <div class="mx-2 w-full text-gray-800">
+            <div
+              class="font-medium"
+              v-text="toast.title"
+            />
+            <p
+              class="text-gray-600"
+              v-text="toast.text"
+            />
+          </div>
+          <div class="text-lg text-gray-600">
+            <div
+              class="cursor-pointer"
+              @click="removeToast(index)"
+            >
+              <font-awesome-icon icon="times" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <slot />
   </div>
 </template>
 
 <script>
+import { v4 as uuid } from 'uuid';
+
 export default {
 
   data() {
     return {
       loading: false,
+      icons: {
+        success: ['far', 'check-circle'],
+        error: ['far', 'times-circle'],
+        warning: 'exclamation',
+        info: ['far', 'question-circle'],
+      },
+
+      colours: {
+        success: 'text-green-500',
+        error: 'text-red-500',
+        warning: 'text-orange-500',
+        info: 'text-blue-500',
+      },
+
+      toasts: [],
     };
   },
 
@@ -62,6 +114,26 @@ export default {
     this.$bus.$on('loading', (loading) => {
       this.loading = loading;
     });
+
+    this.$bus.$on('toast:show', (data, dismissAfter = 3000) => {
+      this.addToast(data, dismissAfter);
+    });
+  },
+
+  methods: {
+    removeToast(toastId) {
+      const toastIndex = this.toasts.findIndex((toast) => toast.id === toastId);
+      this.toasts.splice(toastIndex, 1);
+    },
+
+    addToast(data, dismissAfter = 3000) {
+      data.id = uuid();
+      this.toasts.push(data);
+
+      if (dismissAfter) {
+        setTimeout(() => this.removeToast(data.id), dismissAfter);
+      }
+    },
   },
 };
 </script>

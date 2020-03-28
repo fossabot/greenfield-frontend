@@ -51,5 +51,21 @@ export default {
   },
   settings: {
     title: 'Settings',
+    myAccount: {
+      title: 'Profile',
+      account: {
+        first_name: 'First name',
+        surname: 'Surname',
+        emailAddress: 'Email address',
+        update: 'Update profile',
+      },
+
+      password: {
+        title: 'Password',
+        current_password: 'Current password',
+        password: 'New Password',
+        update: 'Update password',
+      },
+    },
   },
 };

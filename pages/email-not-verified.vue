@@ -1,12 +1,15 @@
 <template>
   <div>
-    <heading :title="$t('emailNotVerified.title')" :intro="$t('emailNotVerified.intro')"/>
+    <heading
+      :title="$t('emailNotVerified.title')"
+      :intro="$t('emailNotVerified.intro')"
+    />
 
     <div class="mt-6">
       <button
-        @click.prevent="submit"
         type="submit"
         class="signin-button group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
+        @click.prevent="submit"
         v-text="$t('emailNotVerified.submit')"
       />
     </div>
@@ -14,45 +17,44 @@
 </template>
 
 <script>
-  import Heading from '~/components/Unauthenticated/Heading.vue';
-  import FormInput from "~/components/Form/Input";
-  export default {
-    layout: 'unauthenticated-form',
-    middleware: ['auth'],
+import Heading from '~/components/Unauthenticated/Heading.vue';
 
-    components: {
-      Heading,
-      FormInput,
+export default {
+  layout: 'unauthenticated-form',
+  middleware: ['auth'],
+
+  components: {
+    Heading,
+  },
+
+  data() {
+    return {
+      form: this.$form({
+        password: null,
+        email: this.$route.query.email,
+        token: this.$route.query.token,
+      }),
+      error: false,
+    };
+  },
+
+  mounted() {
+    this.form.token = this.$route.query.token;
+    this.form.email = this.$route.query.email;
+  },
+
+  methods: {
+    submit() {
+      this.$bus.$emit('loading', true);
+
+      this.$axios.post(`${process.env.API_URL}/verify-email/resend-verification`).then((response) => {
+        if (response.data.resent) {
+          this.$bus.$emit('loading', false);
+        }
+      });
     },
-
-    data() {
-      return {
-        form: this.$form({
-          password: null,
-          email: this.$route.query.email,
-          token: this.$route.query.token,
-        }),
-        error: false,
-      };
-    },
-
-    mounted() {
-      this.form.token = this.$route.query.token;
-      this.form.email = this.$route.query.email;
-    },
-
-    methods: {
-      submit() {
-        this.$bus.$emit('loading', true);
-
-        this.$axios.post(`${process.env.API_URL}/verify-email/resend-verification`).then(response => {
-          if(response.data.resent) {
-            this.$bus.$emit('loading', false);
-          }
-        });
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>

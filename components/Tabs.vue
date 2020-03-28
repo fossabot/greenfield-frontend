@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between">
+    <div class="sm:flex justify-between">
       <div
         v-for="(tab, index) in tabs"
         :key="index"
@@ -11,7 +11,7 @@
       />
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 mx-2 sm:mx-0">
       <slot :name="getTabName(tabs[selectedTab])" />
     </div>
   </div>

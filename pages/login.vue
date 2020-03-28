@@ -2,21 +2,16 @@
   <div>
     <heading :title="$t('login.title')"/>
 
-    <form class="mt-8">
-      <input
-        type="hidden"
-        name="remember"
-        value="true"
-      >
+    <div class="mt-8">
       <div class="rounded-md shadow-sm">
-        <form-input
+        <placeholder-input
           class="-mt-px rounded-t-md"
           :error="error"
           v-model="form.username"
           type="email"
           name="username"
           :label="$t('login.emailAddress')"/>
-        <form-input
+        <placeholder-input
           class="-mt-px rounded-b-md"
           :error="error"
           v-model="form.password"
@@ -40,10 +35,9 @@
       </div>
 
       <div class="mt-6">
-        <button
+        <form-button
           @click.prevent="login"
-          type="submit"
-          class="login-button group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
+          class="w-full"
         >
           <span class="absolute left-0 inset-y-0 flex items-center pl-3">
             <svg
@@ -59,21 +53,19 @@
             </svg>
           </span>
           {{ $t('login.signIn') }}
-        </button>
+        </form-button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
 import Heading from '~/components/Unauthenticated/Heading.vue';
-import FormInput from "~/components/Form/Input";
 export default {
   layout: 'unauthenticated-form',
 
   components: {
     Heading,
-    FormInput,
   },
 
   data() {
@@ -106,13 +98,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .login-button {
-    @apply relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 transition duration-150 ease-in-out;
-  }
-
-  .input-field {
-    @apply appearance-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900;
-  }
-</style>

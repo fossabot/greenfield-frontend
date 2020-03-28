@@ -51,29 +51,29 @@
                 >
                 <a
                   href="#"
-                  class="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
+                  class="ml-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
                   >Features</a
                 >
                 <a
                   href="#"
-                  class="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
+                  class="ml-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
                   >Marketplace</a
                 >
                 <a
                   href="#"
-                  class="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
+                  class="ml-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
                   >Company</a
                 >
                 <nuxt-link
                   to="/login"
                   v-if="!$auth.loggedIn"
-                  class="ml-8 font-medium text-indigo-600 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out"
+                  class="ml-6 font-medium text-indigo-600 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out"
                   >
                   Log in
                 </nuxt-link>
                 <nuxt-link
                 to="/dashboard"
-                class="ml-8 font-medium text-indigo-700 bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out px-4 py-2 rounded-md"
+                class="ml-6 font-medium text-indigo-700 bg-indigo-100 hover:text-indigo-900 focus:outline-none focus:text-indigo-700 transition duration-150 ease-in-out px-4 py-2 rounded-md"
                 v-else>
                   Dashboard
                 </nuxt-link>

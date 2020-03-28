@@ -8,22 +8,24 @@
       <tabs
         :tabs="tabs.map(tab => tab.title)"
         :selected="tab"
-        v-on:tabs:selected="tabsUpdated"
+        @tabs:selected="tabsUpdated"
       >
         <template v-slot:my-account>
-          My Account
-        </template>
+          <h3
+            class="font-medium text-lg"
+            v-text="$t('settings.myAccount.title')"
+          />
 
-        <template v-slot:company>
-          Company
-        </template>
+          <my-account-form />
 
-        <template v-slot:team-members>
-          Team Members
-        </template>
+          <hr class="my-6">
 
-        <template v-slot:billing>
-          Billing
+          <h3
+            class="font-medium text-lg"
+            v-text="$t('settings.myAccount.password.title')"
+          />
+
+          <password-form />
         </template>
       </tabs>
     </template>
@@ -32,31 +34,27 @@
 
 <script>
 import Tabs from '~/components/Tabs.vue';
+import MyAccountForm from '~/components/Forms/MyAccount';
+import PasswordForm from '~/components/Forms/Password';
 
 export default {
   components: {
     Tabs,
+    MyAccountForm,
+    PasswordForm,
   },
 
   data() {
     return {
+      passwordForm: this.$form({
+        current_password: null,
+        password: null,
+      }),
       tab: 0,
       tabs: [
         {
           title: 'My Account',
           slug: 'my-account',
-        },
-        {
-          title: 'Company',
-          slug: 'company',
-        },
-        {
-          title: 'Team Members',
-          slug: 'team-members',
-        },
-        {
-          title: 'Billing',
-          slug: 'billing',
         },
       ],
     };
