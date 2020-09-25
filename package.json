@@ -5,7 +5,7 @@
   "author": "Johnathan Barrett",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "nuxt --host base.test --port 3000",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "nuxt start",
