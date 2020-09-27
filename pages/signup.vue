@@ -106,6 +106,7 @@ export default {
 
       this.form.post(`${process.env.API_URL}/auth/signup`).then((response) => {
         this.$auth.loginWith('oauth2.password', credentials).then(() => {
+          this.$bus.$emit('loading', false);
           this.$router.push({
             path: '/dashboard',
           });

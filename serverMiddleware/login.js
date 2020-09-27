@@ -7,8 +7,6 @@ export default {
   async handler(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    console.log('HELLO', process.env.API_URL);
-
     if (req.method === 'OPTIONS') {
       res.setHeader('Allow', 'OPTIONS, POST');
       res.setHeader('Access-Control-Allow-Origin', process.env.BASE_URL);
@@ -16,22 +14,20 @@ export default {
       res.end();
     }
 
-    console.log(req.method);
     if (req.method === 'POST') {
-      console.log("POSTTT");
-      axios.post(`${process.env.API_URL}/oauth/token`, {
+      const data = {
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
         grant_type: 'password',
         username: req.body.username,
         password: req.body.password,
-      })
+      };
+
+      axios.post(`${process.env.API_URL}/oauth/token`, data)
         .then((response) => {
-          console.log('cool');
           res.end(JSON.stringify(response.data));
         })
         .catch((error) => {
-          console.log("error", error);
           res.statusCode = error.response.status;
           res.end(JSON.stringify(error.response.data));
         });

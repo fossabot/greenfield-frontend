@@ -77,7 +77,7 @@ export default class Oauth2PasswordScheme {
     }
 
     const user = await this.$auth.requestWith(this.name, {
-      url: this.options.endpoints.me
+      url: this.options.endpoints.me,
     });
 
     this.$auth.setUser(user.data);

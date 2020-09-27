@@ -85,11 +85,11 @@ export default {
         username: this.form.username,
         password: this.form.password,
       }).then(() => {
+        this.$bus.$emit('loading', false);
         this.$router.push({
           path: '/dashboard',
         });
       }).catch((error) => {
-        console.log({error}, '???');
         this.$bus.$emit('loading', false);
         this.error = true;
         this.password = null;
