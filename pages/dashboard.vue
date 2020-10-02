@@ -23,7 +23,7 @@
       </p>
 
       <div class="flex justify-center items-center p-4">
-        <form-button @click.prevent="$nuxt.$emit('modal:show')">Open Modal</form-button>
+        <base-button @click.prevent="$nuxt.$emit('modal:show')">Open Modal</base-button>
       </div>
     </template>
   </app-layout>
@@ -31,10 +31,12 @@
 
 <script>
 import Modal from '~/components/Modal.vue';
+import BaseButton from '~/components/Button.vue';
 
 export default {
   components: {
     Modal,
+    BaseButton,
   },
 };
 </script>

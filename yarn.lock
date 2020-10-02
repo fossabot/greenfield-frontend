@@ -861,6 +861,21 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@braid/vue-formulate-i18n@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@braid/vue-formulate-i18n/-/vue-formulate-i18n-1.12.1.tgz#54862653355e5217bbd6be7aeb0e706001456ec0"
+  integrity sha512-qU2mU2038R1nbgDzyNaeE89BN7nhEVqLxnLAIlD1mwKtK97axjdifMGOoMlbglL7ajIL9aKzPfmqNgXn8Mh+DA==
+
+"@braid/vue-formulate@^2.4.4":
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@braid/vue-formulate/-/vue-formulate-2.4.4.tgz#4fcfef4a8d5ecc3c8c95bd96312fc7e426085107"
+  integrity sha512-XzChuQZ6TAFZAZLFN0jl5QkKN+rGqEYWCwJe1/pSVWpcXBT73UvWf6q88lVo/kXadnfKnZR5HPQdlylU74pMkw==
+  dependencies:
+    "@braid/vue-formulate-i18n" "^1.12.1"
+    is-plain-object "^3.0.1"
+    is-url "^1.2.4"
+    nanoid "^2.1.11"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -5758,6 +5773,11 @@ is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   dependencies:
     isobject "^3.0.1"
 
+is-plain-object@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-3.0.1.tgz#662d92d24c0aa4302407b0d45d21f2251c85f85b"
+  integrity sha512-Xnpx182SBMrr/aBik8y+GuR4U1L9FqMSojwDQwPMmxyC6bvEqly9UBCxhauBF5vNh2gwWJNX6oDV7O+OM4z34g==
+
 is-promise@^2.1.0:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.2.2.tgz#39ab959ccbf9a774cf079f7b40c7a26f763135f1"
@@ -5835,6 +5855,11 @@ is-typedarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
+
+is-url@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/is-url/-/is-url-1.2.4.tgz#04a4df46d28c4cff3d73d01ff06abeb318a1aa52"
+  integrity sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==
 
 is-whitespace@^0.3.0:
   version "0.3.0"

@@ -38,6 +38,7 @@ export default {
     '~/plugins/components.js',
     '~/plugins/bus.js',
     '~/plugins/form.js',
+    '~/plugins/vue-formulate',
   ],
   /*
    ** Nuxt.js dev-modules
