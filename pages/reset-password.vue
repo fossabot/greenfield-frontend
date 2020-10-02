@@ -5,44 +5,23 @@
       :intro="$t('resetPassword.intro')"
     />
 
-    <form class="mt-8">
-      <input
-        type="hidden"
-        name="remember"
-        value="true"
-      >
-      <div class="rounded-md shadow-sm">
-        <div>
-          <placeholder-input
-            v-model="form.password"
-            class="rounded-md"
-            :error="form.errors.get('password')"
-            type="password"
-            name="password"
-            :label="$t('resetPassword.password')"
-          />
-        </div>
-      </div>
+    <p
+      v-if="Object.keys(resetPasswordForm.errors).length"
+      class="text-sm mt-1 text-center text-red-500"
+      v-text="$t('resetPassword.problem')"
+    />
 
-      <p
-        v-if="error"
-        class="text-sm mt-1 text-center text-red-500"
-        v-text="$t('resetPassword.problem')"
-      />
-
-      <div class="mt-6">
-        <button
-          type="submit"
-          class="signin-button group hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
-          @click.prevent="submit"
-          v-text="$t('resetPassword.resetPassword')"
-        />
-      </div>
-    </form>
+    <FormulateForm
+      v-model="resetPasswordForm"
+      :errors="resetPasswordForm.errors"
+      :schema="schema"
+      @submit="submit"
+    />
   </div>
 </template>
 
 <script>
+import resetPasswordSchema from '@/schemas/resetPasswordSchema.js';
 import Heading from '~/components/Unauthenticated/Heading.vue';
 
 export default {
@@ -54,18 +33,19 @@ export default {
 
   data() {
     return {
-      form: this.$form({
+      schema: resetPasswordSchema(),
+      resetPasswordForm: {
         password: null,
         email: this.$route.query.email,
         token: this.$route.query.token,
-      }),
-      error: false,
+        errors: {},
+      },
     };
   },
 
   mounted() {
-    this.form.token = this.$route.query.token;
-    this.form.email = this.$route.query.email;
+    this.resetPasswordForm.token = this.$route.query.token;
+    this.resetPasswordForm.email = this.$route.query.email;
   },
 
   methods: {
@@ -73,11 +53,11 @@ export default {
       this.$bus.$emit('loading', true);
 
       const credentials = {
-        username: this.form.email,
-        password: this.form.password,
+        username: this.resetPasswordForm.email,
+        password: this.resetPasswordForm.password,
       };
 
-      this.form.post(`${process.env.API_URL}/auth/reset-password`).then((response) => {
+      this.$axios.post(`${process.env.API_URL}/auth/reset-password`, this.resetPasswordForm).then(() => {
         this.$auth.loginWith('oauth2.password', credentials).then(() => {
           this.$router.push({
             path: '/dashboard',
@@ -86,7 +66,7 @@ export default {
       }).catch((error) => {
         this.$bus.$emit('loading', false);
         this.form.password = null;
-        this.error = true;
+        this.resetPasswordForm.errors = error.response.data.errors;
       });
     },
   },
