@@ -1,47 +1,27 @@
 <template>
   <div class="mt-2">
-    <div class="md:grid grid-cols-2 gap-4 w-full mb-6">
-      <form-input
-        v-model="form.first_name"
-        name="first_name"
-        :label="$t('settings.myAccount.account.first_name')"
-        :error="form.errors.get('first_name')"
-      />
-
-      <form-input
-        v-model="form.surname"
-        name="surname"
-        :label="$t('settings.myAccount.account.surname')"
-        :error="form.errors.get('surname')"
-      />
-    </div>
-
-    <div class="md:grid grid-cols-2 gap-4 w-full mb-6">
-      <form-input
-        v-model="form.email"
-        name="email"
-        :label="$t('settings.myAccount.account.emailAddress')"
-        :error="form.errors.get('email')"
-      />
-    </div>
-
-    <form-button
-      class="w-full md:w-auto"
-      @click.prevent="submit"
-      v-text="$t('settings.myAccount.account.update')"
+    <FormulateForm
+      v-model="myAccountForm"
+      :errors="myAccountForm.errors"
+      :schema="schema"
+      @submit="submit"
     />
   </div>
 </template>
 
 <script>
+import myAccountSchema from '@/schemas/myAccountSchema.js';
+
 export default {
   data() {
     return {
-      form: this.$form({
+      schema: myAccountSchema(),
+      myAccountForm: {
         first_name: null,
         surname: null,
         email: null,
-      }),
+        errors: {},
+      },
     };
   },
 
@@ -57,18 +37,19 @@ export default {
 
   methods: {
     setFormData() {
-      this.form = this.$form({
+      this.myAccountForm = {
         first_name: this.me.first_name,
         surname: this.me.surname,
         email: this.me.email,
-      });
+        errors: {},
+      };
     },
 
     submit() {
       this.$bus.$emit('loading', true);
-      this.form.patch(`${process.env.API_URL}/me`).then(() => {
+      this.$axios.patch(`${process.env.API_URL}/me`, this.myAccountForm).then(() => {
         this.$bus.$emit('loading', false);
-        this.form.errors.clear();
+        this.myAccountForm.errors = {};
         this.$auth.fetchUser();
         this.$bus.$emit('toast:show', {
           title: 'Updated',
@@ -76,6 +57,7 @@ export default {
           status: 'success',
         });
       }).catch((error) => {
+        this.myAccountForm.errors = error.response.data.errors;
         this.$bus.$emit('loading', false);
         this.$bus.$emit('toast:show', {
           title: 'Oops',

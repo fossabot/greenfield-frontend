@@ -1,39 +1,28 @@
 <template>
   <div class="mt-2">
-    <div class="md:grid grid-cols-2 gap-4 w-full mb-6">
-      <form-input
-        v-model="form.current_password"
-        name="current_password"
-        type="password"
-        :label="$t('settings.myAccount.password.current_password')"
-        :error="form.errors.get('current_password')"
-      />
-
-      <form-input
-        v-model="form.password"
-        name="password"
-        type="password"
-        :label="$t('settings.myAccount.password.password')"
-        :error="form.errors.get('password')"
-      />
-    </div>
-
-    <form-button
-      class="w-full md:w-auto"
-      @click.prevent="submit"
-      v-text="$t('settings.myAccount.password.update')"
+    <FormulateForm
+      :key="formKey"
+      v-model="accountPasswordForm"
+      :errors="accountPasswordForm.errors"
+      :schema="schema"
+      @submit="submit"
     />
   </div>
 </template>
 
 <script>
+import accountPasswordSchema from "@/schemas/accountPasswordSchema.js";
+
 export default {
   data() {
     return {
-      form: this.$form({
+      formKey: Math.floor(Math.random() * 100),
+      schema: accountPasswordSchema(),
+      accountPasswordForm: {
         current_password: null,
         password: null,
-      }, { clearOnSuccess: true }),
+        errors: {},
+      },
     };
   },
 
@@ -46,22 +35,28 @@ export default {
   methods: {
     submit() {
       this.$bus.$emit('loading', true);
-      this.form.put(`${process.env.API_URL}/password`).then(() => {
+      this.$axios.put(`${process.env.API_URL}/password`, this.accountPasswordForm).then(() => {
         this.$bus.$emit('loading', false);
-        this.form.errors.clear();
+        this.accountPasswordForm = {
+          current_password: null,
+          password: null,
+          errors: {},
+        };
         this.$auth.fetchUser();
         this.$bus.$emit('toast:show', {
           title: 'Updated',
           text: 'Your password has been updated',
           status: 'success',
         });
+        this.formKey = Math.floor(Math.random() * 100);
       }).catch((error) => {
+        this.accountPasswordForm.errors = error.response.data.errors;
         this.$bus.$emit('loading', false);
         this.$bus.$emit('toast:show', {
           title: 'Oops',
           text: error.response.data.message,
           status: 'error',
-        }, false);
+        }, true);
       });
     },
   },
