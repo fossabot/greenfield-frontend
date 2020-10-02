@@ -5,6 +5,12 @@
     </template>
 
     <template v-slot:content>
+      <portal to="modal">
+        <modal>
+          <h1>Example Modal</h1>
+        </modal>
+      </portal>
+
       <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam sit
         amet faucibus nunc. Aliquam accumsan sapien vitae luctus lobortis.
         Integer mattis lorem at enim pulvinar porta. Aenean quis mattis arcu.
@@ -15,6 +21,20 @@
         sagittis. Sed finibus, sem fermentum auctor pretium, mi nulla
         lobortis est, et viverra lacus ipsum vitae justo. Vestibulum et
       </p>
+
+      <div class="flex justify-center items-center p-4">
+        <form-button @click.prevent="$nuxt.$emit('modal:show')">Open Modal</form-button>
+      </div>
     </template>
   </app-layout>
 </template>
+
+<script>
+import Modal from '~/components/Modal.vue';
+
+export default {
+  components: {
+    Modal,
+  },
+};
+</script>

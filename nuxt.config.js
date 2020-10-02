@@ -45,7 +45,17 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/fontawesome',
   ],
+
+  fontawesome: {
+    icons: {
+      solid: [
+        'faTimes',
+      ],
+    },
+  },
+
   /*
    ** Nuxt.js modules
    */
@@ -56,6 +66,7 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     ['nuxt-i18n', require('./i18n')],
+    'portal-vue/nuxt',
   ],
   /*
    ** Axios module configuration
