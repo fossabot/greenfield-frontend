@@ -1,11 +1,11 @@
 {
-  "name": "base-frontend",
+  "name": "{[machineName]}",
   "version": "1.0.0",
-  "description": "Frontend starter",
+  "description": "{[name]}",
   "author": "Johnathan Barrett",
   "private": true,
   "scripts": {
-    "dev": "nuxt --host base.test --port 3000",
+    "dev": "nuxt --host {[frontendUrl]} --port {[frontendPort]}",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "nuxt start",

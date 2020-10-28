@@ -1,6 +1,6 @@
-# base-frontend
+# {[machine-name]}
 
-> Frontend starter
+> {[name]}
 
 ## Build Setup
 
