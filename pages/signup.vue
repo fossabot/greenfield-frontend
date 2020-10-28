@@ -16,6 +16,16 @@
       @submit="signup"
     />
 
+    <div
+      v-if="enableSocialSignup"
+      class="text-center font-bold"
+    >
+      <div>
+        {{ $t('register.orRegisterWith') }}
+      </div>
+      <social-login />
+    </div>
+
     <div class="mt-6 flex items-center justify-start">
       <div class="text-sm leading-5">
         {{ $t('register.alreadyHaveAnAccount.title') }}
@@ -32,16 +42,19 @@
 <script>
 import Heading from '~/components/Unauthenticated/Heading.vue';
 import signupSchema from "@/schemas/signupSchema.js";
+import SocialLogin from '@/components/SocialLogin.vue';
 
 export default {
   layout: 'unauthenticated-form',
 
   components: {
     Heading,
+    SocialLogin,
   },
 
   data() {
     return {
+      enableSocialSignup: process.env.ENABLE_SOCIAL_SIGNUP,
       schema: signupSchema(),
       signupForm: {
         first_name: null,

@@ -1,9 +1,12 @@
 <template>
   <div>
-    <heading :title="$t('login.title')"/>
+    <heading :title="$t('login.title')" />
 
     <div class="mt-8">
-      <p class="text-sm mt-1 text-center text-red-500" v-if="Object.keys(loginForm.errors).length">
+      <p
+        v-if="Object.keys(loginForm.errors).length"
+        class="text-sm mt-1 text-center text-red-500"
+      >
         {{ $t('login.incorrectUsernameOrPassword') }}
       </p>
 
@@ -14,13 +17,31 @@
         @submit="login"
       />
 
+      <div
+        v-if="enableSocialLogin"
+        class="text-center font-bold"
+      >
+        <div>
+          {{ $t('login.orLoginWith') }}
+        </div>
+        <social-login />
+      </div>
+
       <div class="mt-6 flex items-center justify-between flex-col sm:flex-row">
         <div class="text-sm leading-5">
-          {{$t('login.dontHaveAnAccount.title')}}
-          <nuxt-link to="/signup" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150" v-text="$t('login.dontHaveAnAccount.signUp')" />
+          {{ $t('login.dontHaveAnAccount.title') }}
+          <nuxt-link
+            to="/signup"
+            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+            v-text="$t('login.dontHaveAnAccount.signUp')"
+          />
         </div>
         <div class="text-sm leading-5">
-          <nuxt-link to="/forgotten-password" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150" v-text="$t('login.forgotYourPassword')" />
+          <nuxt-link
+            to="/forgotten-password"
+            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+            v-text="$t('login.forgotYourPassword')"
+          />
         </div>
       </div>
     </div>
@@ -30,15 +51,19 @@
 <script>
 import Heading from '~/components/Unauthenticated/Heading.vue';
 import LoginSchema from '~/schemas/loginSchema.js';
+import SocialLogin from '~/components/SocialLogin.vue';
+
 export default {
   layout: 'unauthenticated-form',
 
   components: {
     Heading,
+    SocialLogin,
   },
 
   data() {
     return {
+      enableSocialLogin: process.env.ENABLE_SOCIAL_LOGIN,
       loginForm: {
         email: null,
         password: null,

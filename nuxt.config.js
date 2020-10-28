@@ -54,6 +54,11 @@ export default {
       solid: [
         'faTimes',
       ],
+      brands: [
+        'faApple',
+        'faFacebookF',
+        'faGoogle',
+      ],
     },
   },
 
