@@ -1,6 +1,6 @@
-# [[[machine-name]]]
+# {[machine-name]}
 
-> [[[name]]]
+> {[name]}
 
 ## Build Setup
 
