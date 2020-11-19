@@ -1,4 +1,4 @@
-# {[machine-name]}
+# {[machineName]}
 
 > {[name]}
 
