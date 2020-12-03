@@ -31,7 +31,7 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/fontawesome": "^1.1.2",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-import": "^2.22.1",
     "nuxt": "^2.14.9",
     "nuxt-i18n": "^6.6.1",
     "portal-vue": "^2.1.7",
