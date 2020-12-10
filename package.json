@@ -33,7 +33,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.22.1",
     "nuxt": "^2.14.9",
-    "nuxt-i18n": "^6.6.1",
+    "nuxt-i18n": "^6.16.0",
     "portal-vue": "^2.1.7",
     "uuid": "^7.0.2",
     "vue-click-outside": "^1.0.7"
