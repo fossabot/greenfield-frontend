@@ -10,7 +10,8 @@
     "generate": "nuxt generate",
     "start": "nuxt start",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test": "jest"
+    "test": "jest",
+    "merge-package-json": "node ./scripts/development/mergePackageJson.js"
   },
   "lint-staged": {
     "*.{js,vue}": "yarn lint"
