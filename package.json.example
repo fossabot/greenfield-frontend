@@ -2,7 +2,7 @@
   "name": "{[machineName]}",
   "version": "1.0.0",
   "description": "{[name]}",
-  "author": "Johnathan Barrett",
+  "author": "{[authorName]}",
   "private": true,
   "scripts": {
     "dev": "nuxt --host {[frontendUrl]} --port {[frontendPort]}",
